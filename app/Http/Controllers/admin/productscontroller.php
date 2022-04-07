@@ -18,18 +18,17 @@ class productscontroller extends Controller
     public function store(Request $request)
     {
         $products = new Product;
-        $products->name = $request->input('name');
-        $products->price = $request->input('price');
-    
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension(); 
-          $filename = time().'.'.$extension;
-          $file->move('public/product/', $filename);
-        $products->image = $filename;
-    }
-    $products->save();
-    return redirect('allproducts')->with('status','Product added!');
+        $Name = $request->input('name');
+        $Price  = $request->input('price');
+        if ($request->hasFile('image')) 
+        {
+         $file = $request->file('image');
+         $extension = $file->getClientOriginalExtension(); 
+           $filename = time().'.'.$extension;
+           $file->move('public/product/', $filename);
+        }
+      $products = Product::addProduct($Name , $Price,$filename);
+      return redirect('allproducts')->with('status','Product added!');
 
     
      }
@@ -43,8 +42,8 @@ class productscontroller extends Controller
     }
     public function searchproducts(Request $request)
     {
-       $search = $request->get('search');
-       $products = Product::where('name','like','%'.$search.'%')->get();
+       $query = $request->get('search');
+       $products = Product::searchProducts($query);
        return view('search')->with('products',$products);
     }
     public function website()
@@ -56,7 +55,7 @@ class productscontroller extends Controller
     }
     public function display(Request $request)
     {
-           $sort = $request->sort;
+        $sort = $request->sort;
 
      if($sort == 'price_asc')
      {
@@ -76,7 +75,7 @@ class productscontroller extends Controller
    }
         return view('userwebsite')->with('products',$products);
 
-    }
+}
 
     public function info($id)
     {

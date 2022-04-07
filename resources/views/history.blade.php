@@ -75,42 +75,26 @@ body{
    <thead>
        <thead>
        <tr>
-           <th>ID</th>
+           <th>USER_ID</th>
            <th>Product_ID</th>
            <th>Name</th>
            <th>Price</th>
            <th>Quantity</th>
-           <th>Action</th>
-           <th>Order</th>
+           
+           
        </tr>
        </thead>
 <tbody>
-@foreach($carts as $element)
+@foreach($orders as $element)
 <tr>
-    <td>{{ $element-> id}}</td>
+    <td>{{ $element-> user_id}}</td>
     <td>{{ $element-> prod_id}}</td>
     <td>{{ $element-> name}}</td>
     <td>{{ $element-> price}}</td>
     <td>{{ $element-> quantity}}</td>
   
     
-    <td>
-      <form action="/delete-cart-item/{{$element->id}}" method="post">
-        {{csrf_field() }}
-        {{method_field('DELETE')}}
-        <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button><br>
-      </form>
-    </td>
-    <td>
-      <form action="/place-order/{{$element->id}}" method="post">
-                   {{csrf_field() }}
-                   <input type="hidden"  name='id' value=" {{$element->id }}">
-                    
-                    
-                    <button type="submit" class="btn btn-primary" >Place Order</a>
-        </form>
-                    
-    </td>
+    
 
 </tr>
 @endforeach

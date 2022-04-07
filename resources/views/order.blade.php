@@ -1,4 +1,4 @@
-this is order page
+this is checkoutthis is order page
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +47,16 @@ body{
   font-size: 15px;
   margin: 0 10px;
 }
+.box{
+    background-color: yellow;
+    text-align: center;
+  }
+  .container{
+    min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
 </style>
 </head>              
@@ -66,65 +76,24 @@ body{
            <li> <a href="{{ url('useredit') }}">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('userwebsite') }}">GoToWebsite </a></li>
            </ul>
-           <div class="panel-body text-center">
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+           
+            
+            
+            <a href="/userwebsite" class="btn btn-primary">Continue Shopping</a>
+            
+            <div class="container">
+                <div class="box">
+                    <h5>CONGRATULATIONS!</h5>
+                    <h4>Order Placed</h4>
+                </div>
             </div>
-            <a href="/show-cart" class="btn btn-primary">Go To Cart</a>
-            <a href="/userwebsite" class="btn btn-primary">Continue Shopping</a> <br><br>
-<div class="container">
-           <table class="table table-bordered">
-   <thead>
-       <thead>
-       <tr>
-           <th>ID</th>
-           <th>Product_ID</th>
-           <th>Name</th>
-           <th>Price</th>
-           <th>Quantity</th>
-           <th>Action</th>
-       </tr>
-       </thead>
-<tbody>
-@foreach($orders as $element)
-<tr>
-    <td>{{ $element-> id}}</td>
-    <td>{{ $element-> prod_id}}</td>
-    <td>{{ $element-> name}}</td>
-    <td>{{ $element-> price}}</td>
-    <td>{{ $element-> quantity}}</td>
-  
-    
-    <td>
-      <form action="/delete-order-item/{{$element->id}}" method="post">
-        {{csrf_field() }}
-        {{method_field('DELETE')}}
-        <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button><br>
-      </form>
-    </td>
-    <td>
-      <form action="" method="post">
-                   {{csrf_field() }}
-                   <input type="hidden"  name='id' value=" {{$element->id }}">
-                    
-                    
-                    <button type="submit" class="btn btn-primary" >Place order</a>
-        </form>
-                    
-    </td>
+            <a href="{{url ('order-history/'.Auth::id())}}">Order History</a> 
 
-</tr>
 
-@endforeach
 
-<div>
 
-</div>
+           
 
-</tbody>
-</table>
-
-</div>
                 
                     
 

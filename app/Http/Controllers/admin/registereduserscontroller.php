@@ -17,9 +17,8 @@ class registereduserscontroller extends Controller
     }
     public function delete($id)
     {
-       $users = User::findOrFail($id); 
-       $users->delete();
-       return redirect('/dashboard')->with('status','Account deleted!');
+       User::deleteUser($id);
+       return redirect('registeredusers')->with('status','Account deleted!');
     }
     
 }

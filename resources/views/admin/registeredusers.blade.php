@@ -67,8 +67,12 @@ body{
            <li> <a href="/addproducts">Add Products</a></li>
            <li> <a href="/allproducts">All Products </a></li>
            </ul>
-
-          
+           <div class="panel-body text-center">
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+</div>
+<div class="container-fluid">
    <table class="table table-bordered">
    <thead>
        <thead>
@@ -110,7 +114,7 @@ body{
 {{$users->links()}}
 
 </div>
-
+</div>
 
 </body>
 </html>

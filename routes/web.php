@@ -29,11 +29,13 @@ Route::group(['middleware' => ['auth','isUser']],function(){
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/search-products','admin\productscontroller@searchproducts');
-//Route::get('/useredit', 'registereduserscontroller@edit');
-Route::get('/display-products','admin\productscontroller@display');
 
- 
-
+Route::get('/sort-products','admin\productscontroller@display');
+Route::post('/place-order/{id}', 'OrderController@store');
+Route::get('/order-history/{id}', 'OrderController@orderHistory');
+Route::get('/user-edit', 'UserController@index');
+//Route::get('/check-out', 'CheckOutController@index');
+Route::post('/edit-profile/{id}', 'UserController@edit');
 Route::get('/order', 'OrderController@index');
 Route::get('/cart', 'cartController@index');
 Route::post('/product-info/{id}', 'admin\productscontroller@info');
@@ -42,7 +44,7 @@ Route::get('/show-cart', 'cartController@show');
 Route::delete('/delete-cart-item/{id}', 'cartController@delete');
 Route::delete('/delete-order-item/{id}', 'OrderController@delete');
 Route::get('/userwebsite', 'admin\productscontroller@website');
-Route::post('/proceed-buy/{id}', 'OrderController@store');
+// Route::post('/proceed-buy/{id}', 'OrderController@store');
 
 });
 

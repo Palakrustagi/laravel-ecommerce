@@ -90,45 +90,53 @@ body{
 
   <div class="container">
     <div class="box">
-           <h1><u>Edit your profile</u></h1>
+    
+           <h1><u>Edit your profile </u></h1>
            
-           <form action="" method="">
+           <form action="{{url ('edit-profile/'.Auth::id())}}" method="post">
+           
            <div class="name"><b><u>Name:</u></b></div> 
                <div class="row">
                
-                   <div class="col-sm-4">
+                   <div class="col-sm-6">
                 <input type="text"  class="form-control" placeholder="enter old name*" name="oldname"  required/>  
                 </div>
                   
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
 
                    <input type="text" class="form-control"  placeholder="enter new name*"  minlength="6" maxlength="15" name="newname" required />  
                     </div>
-                    <div class="col-sm-4">
-                   <button class="btn btn-primary" type="submit">Change Username</button>
-                </div>
+                  
                </div>
-           </form>
-           <form action="" method="">   
+           
+             
                <div class="pass"><b><u>Password:</u></b></div> 
                 <div class="row">
-                   <div class="col-sm-4">
+                   <div class="col-sm-6">
  
                    <input type="password" class="form-control" placeholder="enter old passsword*" name="oldpass" required />  
                       
                    </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
             
                    <input type="password" class="form-control" placeholder="enter new password*" minlength="7" maxlength="12" name="newpass" required/>  
-                
-                 </div>
-                 <br>
-                <div class="col-sm-4">
-                <button class="btn btn-primary" type="submit">Change Password</button>
-                </div>
+                   <br>
+                   </div>
+                   <center>
+                   <div class="row">
+                   <div class="subbtn">
+                   <button type="submit" class="btn btn-primary">Submit</button>
+                   </div>
+                   </div>
+                   </center>
+                 
+              
                 
                  
-           </form>
+                
+                
+                 
+</form>
            </div>
            </div>
            </div>

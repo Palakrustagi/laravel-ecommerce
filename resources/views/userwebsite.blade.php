@@ -62,7 +62,7 @@ body{
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form></li>
-           <li> <a href="{{ url('useredit') }}">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
+           <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
            </ul>
            <center><b><u><h1 style="color: blueviolet;">Welcome to Website</h1></u></b></center>

@@ -66,7 +66,7 @@ body{
 <div class="panel-body text-center">
                         <div class="alert alert-success">
                             {{ session('status') }}
-                        </div>
+</div>
 </div>
 <div class="row">
   <div class="add">

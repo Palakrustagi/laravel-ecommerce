@@ -28,12 +28,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function ecom()
-    {
-        return $this->belongsToMany(Product::class);
-    }
-
+public  static function editUser($id,$name,$pass)
+{
+    
+    $users = User::where('user_id','=',$id)->get();
+    $users->name = $name;
+    $users->password = $pass;
+    $users->save();
+}
+    
+public static function deleteUser($id)
+{
+    $users = User::findOrFail($id); 
+    $users->delete();
+}
     public function isOnline()
     {
         return Cache::has('user-is-online'.$this->id);

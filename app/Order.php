@@ -8,6 +8,7 @@ class Order extends Model
 {
     protected $table = 'orders';
     protected $fillable=[
+        'user_id',
         'cart_id',
         'prod_id',
         'name',
@@ -15,4 +16,5 @@ class Order extends Model
         'quantity',
 
     ];
+    
 }
