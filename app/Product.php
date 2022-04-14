@@ -30,4 +30,30 @@ class product extends Model
        
 
     }
+    public static function sortProducts($sort)
+    {
+        if($sort == 'price_asc')
+        { 
+            
+          return Product::orderBy('price','asc')->paginate(6);
+        }
+        else if($sort == 'price_desc')
+   
+      {
+         
+       return Product::orderBy('price','desc')->paginate(6);
+   
+      }
+   
+      else{
+       
+       return Product::paginate(5);
+   
+      }
+    }
+    public static function deleteProduct($id)
+    {
+        $product = Product::findOrFail($id); 
+        $product->delete();
+    }
 }

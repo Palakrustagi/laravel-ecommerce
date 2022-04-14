@@ -48,6 +48,8 @@ body{
   margin: 0 10px;
 }
 .box{
+    height: 200px;
+    width: 200px;
     background-color: yellow;
     text-align: center;
   }
@@ -57,13 +59,16 @@ body{
       justify-content: center;
       align-items: center;
   }
+.message{
+  padding-top: 60px;
+}
 
 </style>
 </head>              
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -78,16 +83,22 @@ body{
            </ul>
            
             
-            
+            <div class="cont">
+              <center>
             <a href="/userwebsite" class="btn btn-primary">Continue Shopping</a>
             
+              </center>
+            </div>
             <div class="container">
                 <div class="box">
-                    <h5>CONGRATULATIONS!</h5>
-                    <h4>Order Placed</h4>
+                  <div class="message">
+                    <b><h5>CONGRATULATIONS!</h5>
+                    <h4>Order Placed</h4></b>
+                    <a href="{{url ('order-history/'.Auth::id())}}" class="btn btn-primary">Go to order History</a> 
+                </div>
                 </div>
             </div>
-            <a href="{{url ('order-history/'.Auth::id())}}">Order History</a> 
+            
 
 
 

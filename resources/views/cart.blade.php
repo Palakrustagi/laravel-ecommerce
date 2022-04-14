@@ -22,10 +22,7 @@
 li {
   display: inline;
   float: right;
-  
-  
 }
-
 
 li a {
   display: block;
@@ -52,11 +49,11 @@ body{
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            <span class="glyphicon glyphicon-off">Logout</span>
+                                            <span class="glyphicon glyphicon-off">Logout</span> 
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -64,6 +61,7 @@ body{
                                         </form></li>
            <li> <a href="{{ url('useredit') }}">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('userwebsite') }}">GoToWebsite </a></li>
+           <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
            </ul>
            <div class="panel-body text-center">
                         <div class="alert alert-success">

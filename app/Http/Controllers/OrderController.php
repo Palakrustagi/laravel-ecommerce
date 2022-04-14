@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function index()
     { 
         $orders = Order::all();
-        return view('order')->with('orders',$orders);
+        return view('history')->with('orders',$orders);
 
     }
     public function store(Request $request)
@@ -52,9 +52,8 @@ class OrderController extends Controller
 
     }
     public function delete($id)
-    {
-       $orders = Order::findOrFail($id); 
-       $orders->delete();
+    {  $orders = Order::deleteOrder($id);
+       
        return redirect('/order')->with('status','Item deleted!');
     }
 }

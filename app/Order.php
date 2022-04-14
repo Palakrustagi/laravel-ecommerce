@@ -17,4 +17,10 @@ class Order extends Model
 
     ];
     
+    public static function deleteOrder($id)
+
+    {
+        $order = Order::findOrFail($id); 
+        $order->delete();
+    }
 }

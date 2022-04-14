@@ -74,7 +74,7 @@ body{
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -94,7 +94,7 @@ body{
            <h1><u>Edit your profile </u></h1>
            
            <form action="{{url ('edit-profile/'.Auth::id())}}" method="post">
-           
+           {{ csrf_field() }}
            <div class="name"><b><u>Name:</u></b></div> 
                <div class="row">
                

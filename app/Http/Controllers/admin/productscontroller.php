@@ -36,7 +36,7 @@ class productscontroller extends Controller
    public function show()
     {
      $products = Product::paginate(6);
-     //$users = User::all();
+     
      return view('admin.allproducts')->with('products',$products);
 
     }
@@ -56,23 +56,8 @@ class productscontroller extends Controller
     public function display(Request $request)
     {
         $sort = $request->sort;
-
-     if($sort == 'price_asc')
-     {
-        $products = Product::orderBy('price','asc')->paginate(6);
-     }
-     elseif($sort == 'price_desc')
-
-   {
-    $products = Product::orderBy('price','desc')->paginate(6);
-
-   }
-
-   else{
-
-    $products = Product::paginate(5);
-
-   }
+        $products = Product::sortProducts($sort);
+    
         return view('userwebsite')->with('products',$products);
 
 }
@@ -87,9 +72,8 @@ class productscontroller extends Controller
     
     
     public function delete($id)
-    {
-       $products = Product::findOrFail($id); 
-       $products->delete();
+    {  $products = Product::deleteProduct($id);
+       
        return redirect()->back()->with('status','Product deleted!');
     }
 }

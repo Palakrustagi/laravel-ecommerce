@@ -17,7 +17,7 @@ class UserController extends Controller
         
         $name = $request->input('newname');
         $pass = $request->input('newpass');
-        User::submit($id,$name,$pass);
+        User::edituser($id,$name,$pass);
         
     }
     

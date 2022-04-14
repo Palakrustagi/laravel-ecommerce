@@ -28,7 +28,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-public  static function editUser($id,$name,$pass)
+public  static function edituser($id,$name,$pass)
 {
     
     $users = User::where('user_id','=',$id)->get();

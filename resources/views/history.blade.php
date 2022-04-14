@@ -52,7 +52,7 @@ body{
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -69,7 +69,7 @@ body{
                         <div class="alert alert-success">
                             {{ session('status') }}
             </div>
-            <a href="/userwebsite" class="btn btn-primary">Add more items</a> <br><br>
+            <a href="/userwebsite" class="btn btn-primary">Continue shopping</a> <br><br>
 <div class="container">
            <table class="table table-bordered">
    <thead>

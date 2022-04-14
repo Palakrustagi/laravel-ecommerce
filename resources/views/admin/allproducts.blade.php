@@ -56,9 +56,9 @@ body{
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form></li>
-           <li> <a href=#>Edit <span class="glyphicon glyphicon-edit"></span></a></li>
-           <li><a href="{{ url('addproducts') }}">Add Products</a></li>
-           <li> <a href= "/registeredusers">Users </a></li>
+           
+           <li><a href="{{ url('addproducts') }}"><span class="glyphicon glyphicon-plus"></span>Add Products</a></li>
+           <li> <a href= "/registeredusers"><span class="glyphicon glyphicon-user"></span>Users </a></li>
                     
            </ul>
 
@@ -70,7 +70,7 @@ body{
 </div>
 <div class="row">
   <div class="add">
-<a href="/addproducts" class="btn btn-primary">Add Items</a>
+<a href="/addproducts" class="btn btn-primary">Add more Products</a>
 </div>
 </div>
    <table class="table table-bordered">

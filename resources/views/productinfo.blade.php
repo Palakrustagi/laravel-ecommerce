@@ -48,7 +48,7 @@ body{
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -61,7 +61,9 @@ body{
            <li> <a href="{{ url('useredit') }}">Edit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('userwebsite') }}">Website </a></li>
 </ul>
+
 <section style="background-color: #eee;">
+<a href="/userwebsite" class="btn btn-primary">Go Back</a>
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">

@@ -44,6 +44,7 @@ Route::get('/show-cart', 'cartController@show');
 Route::delete('/delete-cart-item/{id}', 'cartController@delete');
 Route::delete('/delete-order-item/{id}', 'OrderController@delete');
 Route::get('/userwebsite', 'admin\productscontroller@website');
+Route::get('/order-history', 'OrderController@index');
 // Route::post('/proceed-buy/{id}', 'OrderController@store');
 
 });

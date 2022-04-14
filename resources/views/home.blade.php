@@ -15,7 +15,7 @@
                     @endif
 
                     You are logged in as user!<br><br>
-                    <a href="{{ url('/display-products/') }}">Go to website</a>
+                    <a href="{{ url('/userwebsite/') }}">Go to website</a>
                 </div>
             </div>
         </div>

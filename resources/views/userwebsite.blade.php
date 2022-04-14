@@ -52,7 +52,7 @@ body{
 <body>
            
 <ul>
-           <li style="float: left;"><a href= "{{ url('home') }}"> Home</a></li>
+           <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -64,6 +64,7 @@ body{
                                         </form></li>
            <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+           <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
            </ul>
            <center><b><u><h1 style="color: blueviolet;">Welcome to Website</h1></u></b></center>
            <div class="row">
@@ -82,8 +83,8 @@ body{
            <div class="col-md-12 mb-3">
               <span class="font-weight-bold sort-form"><b>Sort by:</b></span>
               <a href="{{ URL::current() }}" class="sort-font">All</a>
-              <a href="{{ URL::current() . "?sort=price_asc" }}" class="sort-font">Price: Low to high</a>
-              <a href="{{ URL::current() . "?sort=price_desc" }}" class="sort-font">Price: High to low</a>
+              <a href="/sort-products?sort=price_asc" class="sort-font">Price: Low to high</a>
+              <a href="/sort-products?sort=price_desc"  class="sort-font">Price: High to low</a>
            </div>
            
            <div class="container">

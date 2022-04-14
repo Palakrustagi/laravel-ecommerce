@@ -86,7 +86,7 @@ body{
                                         </form></li>
            
            <li> <a href= "{{ url('allproducts') }}">All Products </a></li>
-           <li> <a href= "/registeredusers">Users </a></li>
+           <li> <a href= "/registeredusers"><span class="glyphicon glyphicon-user"></span>Users </a></li>
   </ul> 
   <center><h1 style="color: blueviolet;"><b><u>ADD PRODUCT:</u></b></h2></center>
   <div class="container">
