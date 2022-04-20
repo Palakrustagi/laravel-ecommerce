@@ -24,25 +24,10 @@ class cartController extends Controller
     {
     
         $prod_id = $request->input('id');
-    
-        $productByid = Product::where('id',$prod_id)->first();
-    
-        $carts = new Cart();
-    
-        $carts->prod_id = $prod_id;
-    
-        $carts->name = $productByid->name;
-    
-        $carts->price = $productByid->price;
-    
-        $carts->quantity =$request->input('quantity');
-    
-        $carts->save();
-    
-        //return redirect('/show-cart');
-        $carts = Cart::all();
+        $cart_quantity =$request->input('quantity');
+        
+        $carts = Cart::showCart($prod_id, $cart_quantity);
         return view('cart')->with('carts',$carts);
-
     
     }
 

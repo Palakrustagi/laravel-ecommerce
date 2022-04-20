@@ -22,6 +22,7 @@ class product extends Model
       
         $products->image = $filename;
         
+        
        $products->save();
     }
     public static function searchProducts($search)

@@ -72,7 +72,7 @@ body{
 </style>
 </head>
 <body>
-           
+                      
 <ul>
            <li style="float: left;"><a href= "{{ url('home') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
            <li><a href="{{ route('logout') }}"

@@ -68,7 +68,8 @@ body{
                             {{ session('status') }}
 </div>
 </div>
-<div class="row">
+<div class="row">                                                                                        
+
   <div class="add">
 <a href="/addproducts" class="btn btn-primary">Add more Products</a>
 </div>
@@ -76,13 +77,13 @@ body{
    <table class="table table-bordered">
    <thead>
        <thead>
-       <tr>
+       <tr>               
            <th>ID</th>
            <th>Name</th>
            <th>Price</th>
            <th>Image</th>
            <th>Action</th>
-       </tr>
+       </tr>                   
        </thead>
 <tbody>
 @foreach($products as $items)

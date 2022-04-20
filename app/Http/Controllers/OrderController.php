@@ -12,48 +12,53 @@ class OrderController extends Controller
 {
     public function index()
     { 
+
+        try{
         $orders = Order::all();
         return view('history')->with('orders',$orders);
+        }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
 
     }
     public function store(Request $request)
     {
-    
+    try{
         $cart_id = $request->input('id');
     
-        $cartByid = Cart::where('id',$cart_id)->first();
-    
-        $orders = new Order();
-        $orders ->user_id = Auth::id();
-        $orders->cart_id = $cart_id;
-
-        $orders->prod_id = $cartByid->prod_id;
-    
-        $orders->name = $cartByid->name;
-    
-        $orders->price = $cartByid->price;
-    
-        $orders->quantity =$cartByid->quantity;
-    
-        $orders->save();
-    
-        
-        $orders = Order::all();
+        $orders = Order::storeOrder($cart_id);
         return view('order')->with('orders',$orders);
-
+    }
+    catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
     
     }
     public function orderHistory($id)
     {  
         
-        
+        try{
       $orders = Order::where('user_id','=',$id)->get();
         return view('history')->with('orders',$orders);
+        }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
 
     }
     public function delete($id)
-    {  $orders = Order::deleteOrder($id);
-       
+    {  
+        try{
+        $orders = Order::deleteOrder($id);
        return redirect('/order')->with('status','Item deleted!');
+        }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
     }
 }

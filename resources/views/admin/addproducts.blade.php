@@ -96,9 +96,24 @@ body{
        <form action="{{ url('store-product') }}" method="post" enctype="multipart/form-data">
         {{ @csrf_field() }}
        <div class="col-mg-4">
-         <div class="form-group">
+         <div class="form-group ">
            <b><u>Name:</u></b>
           <input type="text" placeholder="enter title of the product" name="name" required class="form-control">
+         
+          <span class="text-danger">
+
+@php
+
+foreach ($errors->get('name') as $message) {
+
+ echo $message;
+
+}
+
+@endphp
+
+</span>
+         
         </div>
       </div>
       <div class="col-mg-4">
