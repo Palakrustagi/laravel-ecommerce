@@ -65,6 +65,8 @@ body{
            <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
            <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
+           
+           <li> <a href="{{ url('api/products') }}">List <span class="glyphicon glyphicon-th-list"></span></a></li>
            </ul>
            <center><b><u><h1 style="color: blueviolet;">Welcome to Website</h1></u></b></center>
            <div class="row">

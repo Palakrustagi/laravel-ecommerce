@@ -65,7 +65,7 @@ body{
                                         </form></li>
            
            <li> <a href="/addproducts"><span class="glyphicon glyphicon-plus"></span>Add Products</a></li>
-           <li> <a href="/allproducts">All Products </a></li>
+           <li> <a href="/allproducts"><span class="glyphicon glyphicon-th-large"></span> Products </a></li>
            </ul>
            <div class="panel-body text-center">
                         <div class="alert alert-success">

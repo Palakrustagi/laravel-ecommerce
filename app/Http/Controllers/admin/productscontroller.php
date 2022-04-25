@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Auth;
 class productscontroller extends Controller
 {   
     public function index()
-    {   
+    { 
 
         return view('admin.addproducts');
     }
     public function store(validateRequest $request)
-    {   try{
+    {  try
+        {
+
         $products = new Product;
         $request->validated();
         $Name = $request->input('name');
@@ -38,10 +40,10 @@ class productscontroller extends Controller
         {
             return view('error_show');
         }
-                     
+        
     
      }
-
+   
    public function show()
     {
         try{
@@ -55,21 +57,23 @@ class productscontroller extends Controller
         }
 
     }
-    public function searchproducts(Request $request)
-    {  try{
-       $query = $request->get('search');
-       $products = Product::searchProducts($query);
-       return view('search')->with('products',$products);
+    public function search(Request $request)
+    {  
+        try{
+            $query = $request->get('search');
+            $products = Product::searchProducts($query);
+            return view('search')->with('products',$products);
     }
-    catch (\Exception $exception) 
+    catch (\Exception $exception)       
         {
             return view('error_show');
         }
     }
     public function website()
-    {   try{
-        $products = Product::paginate(5);
-        return view('userwebsite')->with('products',$products);
+    {   
+        try{
+              $products = Product::paginate(5);
+              return view('userwebsite')->with('products',$products);
        }
        catch (\Exception $exception) 
         {
@@ -78,14 +82,32 @@ class productscontroller extends Controller
 
 
     }
-    public function display(Request $request)
-    {   try{
-        $sort = $request->sort;
-        $products = Product::sortProducts($sort);
     
-        return view('userwebsite')->with('products',$products);
+    public function sorting(Request $request)
+    {
+        try{
+            $sort = $request->sort;
+            $products = Product::sortingProducts($sort);
+  
+             return view('products')->with('products',$products);
+        }       
+       catch (\Exception $exception) 
+      {
+          return view('error_show');
+      }
+                    
     }
-    catch (\Exception $exception) 
+      
+
+    public function display(Request $request)
+    {  
+         try{
+              $sort = $request->sort;
+              $products = Product::sortProducts($sort);
+    
+               return view('userwebsite')->with('products',$products);
+          }
+         catch (\Exception $exception) 
         {
             return view('error_show');
         }
@@ -104,14 +126,18 @@ class productscontroller extends Controller
         } 
     }
       
-    
+    public function products()
+    {
+        $products = Product::paginate(20);
+        return view('products')->with('products',$products);
+    }
     
     public function delete($id)
     {  
         try{
-        $products = Product::deleteProduct($id);
+               $products = Product::deleteProduct($id);
        
-       return redirect()->back()->with('status','Product deleted!');
+               return redirect()->back()->with('status','Product deleted!');
         }
         catch (\Exception $exception) 
         {

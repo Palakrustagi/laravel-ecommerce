@@ -42,16 +42,40 @@ class product extends Model
    
       {
          
-       return Product::orderBy('price','desc')->paginate(6);
+       return Product::orderBy('price','desc')->paginate(6);                   
+   
+      }
+   
+      else{             
+       
+       return Product::paginate(5);                  
+   
+      }
+    }
+
+    public static function sortingProducts($sort)
+    {
+        if($sort == 'price_asc')
+        { 
+            
+          return Product::orderBy('price','asc')->get();
+        }
+        else if($sort == 'price_desc')
+   
+      {
+         
+       return Product::orderBy('price','desc')->get();
    
       }
    
       else{
        
-       return Product::paginate(5);
+       return Product::get();
    
       }
     }
+
+
     public static function deleteProduct($id)
     {
         $product = Product::findOrFail($id); 

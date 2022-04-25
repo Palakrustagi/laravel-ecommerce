@@ -33,7 +33,7 @@ class Cart extends Model
         $carts->quantity = $cart_quantity;
          
         $carts->save();
-        return Cart::all();
+        return Cart::all();      
        
     }
 }

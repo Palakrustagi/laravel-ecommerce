@@ -16,7 +16,7 @@ class validateRequest extends FormRequest
         return true;
     }
 
-    /**
+    /** 
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -26,13 +26,17 @@ class validateRequest extends FormRequest
         return [
             
                 'name' => 'required|unique:products,name',
-                  
+                'price'=>'required|integer',
+
         ];
     }
     public function messages()
     {
         return[
-            'name.unique' => 'Product name already exists'
+            'name.unique' => 'Product name already exists',
+            'price,integer'=>'Please enter valid amount', 
+
         ];
     }
 }
+  

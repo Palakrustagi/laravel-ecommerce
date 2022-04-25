@@ -14,11 +14,15 @@ class UserController extends Controller
     }
     public function editUser(Request $request , $id)
     {  
-        
-        $name = $request->input('newname');
-        $pass = $request->input('newpass');
-        User::edituser($id,$name,$pass);
-        
-    }
-    
-}
+        try{
+             $name = $request->input('newname');
+             $pass = $request->input('newpass');
+             User::edituser($id,$name,$pass);         
+        }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
+                
+    }   
+} 

@@ -9,10 +9,16 @@ use App\User;
 class registereduserscontroller extends Controller
 {
     public function index()
-    {
-     $users = User::paginate(3);
-     //$users = User::all();
-     return view('admin.registeredusers')->with('users',$users);
+    { 
+      try{   
+         $users = User::paginate(3);
+     
+         return view('admin.registeredusers')->with('users',$users);
+      }
+      catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
 
     }
     public function delete($id)

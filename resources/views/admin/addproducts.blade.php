@@ -85,7 +85,7 @@ body{
                                             {{ csrf_field() }}
                                         </form></li>
            
-           <li> <a href= "{{ url('allproducts') }}">All Products </a></li>
+           <li> <a href= "{{ url('allproducts') }}"><span class="glyphicon glyphicon-th-large"></span> Products </a></li>
            <li> <a href= "/registeredusers"><span class="glyphicon glyphicon-user"></span>Users </a></li>
   </ul> 
   <center><h1 style="color: blueviolet;"><b><u>ADD PRODUCT:</u></b></h2></center>
@@ -120,6 +120,17 @@ foreach ($errors->get('name') as $message) {
          <div class="form-group">
          <b><u>Price:</u></b>
           <input type="text" placeholder="enter price of the product" name="price"required class="form-control">
+          <span class="text-danger">
+
+@php                       
+
+foreach ($errors->get('price') as $message) {
+
+ echo $message;
+
+}
+
+@endphp
         </div>
       </div>
       <div class="col-mg-4">
