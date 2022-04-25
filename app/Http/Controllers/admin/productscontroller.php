@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Product;
 use App\Http\Requests\validateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 //use Request;
 
 use App\Http\Controllers\Controller;
@@ -125,12 +126,46 @@ class productscontroller extends Controller
             return view('error_show');
         } 
     }
-      
-    public function products()
-    {
-        $products = Product::paginate(20);
-        return view('products')->with('products',$products);
+
+  public function products(Request $request)
+    {       
+
+                                $products = Product::all();
+
+                                 $filter_data = [];                            
+
+                               foreach($products as $row)
+
+                               {
+
+                                   array_push($filter_data, $row);                            
+
+                               }
+                               
+                               $count = count($filter_data);
+
+                               $page = $request->page;
+
+                               $perPage = 3;                              
+
+                               $offset = ($page-1) * $perPage;                              
+
+                               $products = array_slice($filter_data, $offset, $perPage);      
+                                                    
+
+                               $products = new Paginator($products, $count, $perPage, $page, ['path'  => $request->url(),'query' => $request->query(),]);                                          
+                              
+             return view('products',['products'=>$products]); 
+
+            
     }
+
+     
+     
+     
+     
+     
+     
     
     public function delete($id)
     {  

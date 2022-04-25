@@ -19,12 +19,7 @@
   background-color: rgba(15, 10, 10, 0.733);
  
 }
-li {
-  display: inline;
-  float: right;
-  
-  
-}
+
 li a {
   display: block;
   padding: 8px;
@@ -51,10 +46,13 @@ body{
 </head>
 <body>
            <ul>
+            
            <li style="float: left;"><a href= "{{ url('userwebsite') }}">Website</a></li>
-           <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
-           <li> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-           <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
+           
+           <li  style="float: right;"> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
+           <li  style="float: right;"> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+           <li  style="float: right;"> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
+         
            </ul>
            <center><b><u><h1 style="color: blueviolet;">List of Products</h1></u></b></center>
            <div class="col-md-12 mb-3">
@@ -81,7 +79,9 @@ body{
        </tr>                   
        </thead>
 <tbody>
+
 @foreach($products as $items)
+
 <tr>
     <td>{{ $items-> id}}</td>
     <td>{{ $items-> name}}</td>
@@ -92,11 +92,16 @@ body{
 
 </tr>
 @endforeach
-{{ $products -> links()}}
+
+
 
 </tbody>
+
 </table>
+{{ $products->appends($_GET)->links() }} 
 </div>
+
+
 </div>
 
 
