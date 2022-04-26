@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\firstCron::class
     ];
 
     /**
@@ -25,9 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            DB::table('products')->delete();
-        })->daily();
+        $schedule->command('first:cron')->everyMinute();
     }
 
     /**

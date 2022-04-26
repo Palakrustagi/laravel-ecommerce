@@ -98,7 +98,7 @@ body{
 </tbody>
 
 </table>
-{{ $products->appends($_GET)->links() }} 
+{{ $products->appends($_GET)->links() }}        
 </div>
 
 
