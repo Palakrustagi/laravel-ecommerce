@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth','isAdmin']],function()
     Route::get('/allproducts','admin\productscontroller@show');
     Route::delete('/delete-product/{id}', 'admin\productscontroller@delete');
     
-    
+   
     
    
 });

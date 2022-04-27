@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
 
 class firstCron extends Command
@@ -37,7 +37,13 @@ class firstCron extends Command
      */
     public function handle()
     {
-        info('demo cron');
-        return 0;
+        info('cron initiated');
+    //     $count = DB::table('orders')
+    //     ->whereDate('created_at', '=', date('Y-m-d'))
+    //     ->count();
+    //    info('$count people purchased this item');
+
+
+    
     }
 }
