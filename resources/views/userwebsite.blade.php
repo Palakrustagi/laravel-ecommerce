@@ -68,7 +68,12 @@ body{
            
            <li> <a href="{{ url('api/products') }}">List <span class="glyphicon glyphicon-th-list"></span></a></li>
            </ul>
-           <center><b><u><h1 style="color: blueviolet;">Welcome to Website</h1></u></b></center>
+           <div class="panel-body text-center">
+           <center><b><u><h1 style="color: blueviolet;">Welcome to Website</h1></u></b></center><br>
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                       </div>
+           </div>
            <div class="row">
            <div class="col-md-4 ">
              <form action= "/search-products"   method="get">

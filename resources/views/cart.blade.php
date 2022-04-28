@@ -76,6 +76,7 @@ body{
            <th>ID</th>
            <th>Product_ID</th>
            <th>Name</th>
+           <th>Image</th>
            <th>Price</th>
            <th>Quantity</th>
            <th>Action</th>
@@ -88,6 +89,8 @@ body{
     <td>{{ $element-> id}}</td>
     <td>{{ $element-> prod_id}}</td>
     <td>{{ $element-> name}}</td>
+    <td><img src ="{{  asset('public/product/'.$element-> image) }}" height="80px" width="80px" alt= "product image" ></td>
+    
     <td>{{ $element-> price}}</td>
     <td>{{ $element-> quantity}}</td>
   

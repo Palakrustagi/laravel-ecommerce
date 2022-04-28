@@ -28,10 +28,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-public  static function edituser($id,$name,$pass)
+    
+public  static function edituser($id,$name,$pass,$oldname,$oldpass)
 {
     
-    $users = User::where('user_id','=',$id)->get();
+    $users = User::where('name','=',$oldname)->first();
     $users->name = $name;
     $users->password = $pass;
     $users->save();
@@ -42,8 +43,9 @@ public static function deleteUser($id)
     $users = User::findOrFail($id); 
     $users->delete();
 }
-    public function isOnline()
-    {
-        return Cache::has('user-is-online'.$this->id);
-    }
+
+public function isOnline()
+{
+    return Cache::has('user-is-online'.$this->id);
+}
 }

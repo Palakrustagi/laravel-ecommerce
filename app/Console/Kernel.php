@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.                       
+    /**   
+     * The Artisan commands provided by your application.                        
      *
      * @var array
-     */
+     */ 
     protected $commands = [
-        Commands\firstCron::class
+        Commands\firstCron::class  
     ];
 
-    /**
+    /**      
      * Define the application's command schedule.
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule

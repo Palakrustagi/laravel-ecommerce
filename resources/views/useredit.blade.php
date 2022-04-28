@@ -92,9 +92,16 @@ body{
     <div class="box">
     
            <h1><u>Edit your profile </u></h1>
+           <div class="panel-body text-center">
+           
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                       </div>
+           </div>
            
            <form action="{{url ('edit-profile/'.Auth::id())}}" method="post">
            {{ csrf_field() }}
+           {{ method_field('PUT') }}
            <div class="name"><b><u>Name:</u></b></div> 
                <div class="row">
                

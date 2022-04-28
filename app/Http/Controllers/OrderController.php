@@ -5,6 +5,7 @@ use App\Cart;
 use App\Product;
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class OrderController extends Controller
 {
     public function index()
     { 
-
-        try{
-        $orders = Order::all();
-        return view('history')->with('orders',$orders);
+        try
+        {
+            $orders = Order::all();
+            return view('history')->with('orders',$orders);
         }
         catch (\Exception $exception) 
         {
@@ -25,40 +26,58 @@ class OrderController extends Controller
     }
     public function store(Request $request)
     {
-    try{
         $cart_id = $request->input('id');
-    
-        $orders = Order::storeOrder($cart_id);
-        return view('order')->with('orders',$orders);
-    }
-    catch (\Exception $exception) 
-        {
-            return view('error_show');
-        }
-    
-    }
-    public function orderHistory($id)
-    {  
         
-        try{
-      $orders = Order::where('user_id','=',$id)->get();
-        return view('history')->with('orders',$orders);
+        try
+        { 
+            $orders = Order::storeOrder($cart_id);
+            
+        }
+        catch (\Exception $exception) 
+            {
+                return view('error_show');
+            }
+        return view('order')->with('orders',$orders);
+    
+    }
+
+
+    public function orderHistory(Request $request,$id)
+    { 
+        Validator::make($request->all(),[
+
+            'id' => 'required',
+            ]);
+        
+        try
+        {
+            $orders = Order::where('user_id','=',$id)->get();
+        
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        return view('history')->with('orders',$orders);
 
     }
-    public function delete($id)
+
+
+    public function delete(Request $request,$id)
     {  
-        try{
-        $orders = Order::deleteOrder($id);
-       return redirect('/order')->with('status','Item deleted!');
+        Validator::make($request->all(),[
+
+            'id' => 'required',
+            ]);
+        try
+        {
+           $orders = Order::deleteOrder($id);
+       
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        return redirect('/order')->with('status','Item deleted!');
     }
 }

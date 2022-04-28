@@ -1,182 +1,187 @@
 <?php
 //use Illuminate\Support\Facades\DB;
-//use DB;
+
 namespace App\Http\Controllers\admin;
 use App\Product;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\validateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-//use Request;
 
+
+ 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class productscontroller extends Controller
 {   
     public function index()
-    { 
-
+    {
         return view('admin.addproducts');
     }
-    public function store(validateRequest $request)
-    {  try
-        {
 
+
+    public function store(validateRequest $request)
+    { 
         $products = new Product;
-        $request->validated();
-        $Name = $request->input('name');
-        $Price  = $request->input('price');
-        if ($request->hasFile('image')) 
+        $request->validate();
+        $name = $request->input('name');
+        $price  = $request->input('price');
+      try
         {
-         $file = $request->file('image');
-         $extension = $file->getClientOriginalExtension();
-           $filename = time().'.'.$extension;
-           $file->move('public/product/', $filename);
-        }
-        
-      $products = Product::addProduct($Name , $Price,$filename);
-      return redirect('allproducts')->with('status','Product added!');
-    }
+            if (!($request->hasFile('image'))) 
+            {
+                return view('error_show');
+            }
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('public/product/', $filename);
+            $products = Product::addProduct($name , $price,$filename);
+           
+       }
     catch (\Exception $exception) 
         {
             return view('error_show');
         }
-        
-    
+        return redirect('allproducts')->with('status','Product added!');
      }
    
    public function show()
     {
+        $perpage=6;
         try{
-             $products = Product::paginate(6);
-     
-             return view('admin.allproducts')->with('products',$products);
-        }
+             $products = Product::paginate($perpage);
+           }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        return view('admin.allproducts')->with('products',$products);
 
     }
+
+
     public function search(Request $request)
     {  
-        try{
-            $query = $request->get('search');
+        $query = $request->get('search');
+        try
+        {   if(!$query)
+            {   $products=Product::all();
+                return view('userwesbsite')->with('products',$products);
+            }
             $products = Product::searchProducts($query);
-            return view('search')->with('products',$products);
-    }
+            
+        }
     catch (\Exception $exception)       
         {
             return view('error_show');
         }
+        return view('search')->with('products',$products);
     }
+
+
     public function website()
     {   
-        try{
-              $products = Product::paginate(5);
-              return view('userwebsite')->with('products',$products);
-       }
+        $perpage = 6;
+        try
+        {
+              $products = Product::paginate($perpage);
+        }
        catch (\Exception $exception) 
         {
             return view('error_show');
         }
-
+        return view('userwebsite')->with('products',$products);
 
     }
     
     public function sorting(Request $request)
     {
-        try{
-            $sort = $request->sort;
+        $sort = $request->sort;
+        try
+        {
             $products = Product::sortingProducts($sort);
-  
-             return view('products')->with('products',$products);
         }       
-       catch (\Exception $exception) 
-      {
-          return view('error_show');
-      }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
+      return view('products')->with('products',$products);
                     
     }
       
 
     public function display(Request $request)
     {  
-         try{
-              $sort = $request->sort;
+        $sort = $request->sort;
+         try
+         {
               $products = Product::sortProducts($sort);
-    
-               return view('userwebsite')->with('products',$products);
-          }
+         }
          catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        
+        return view('userwebsite')->with('products',$products);
 
 }
 
     public function info($id)
-    {  try{
-       
-       $data = Product::find($id);
-        return view('productinfo',['product'=>$data]); 
-    }
-    catch (\Exception $exception) 
-        {
-            return view('error_show');
-        } 
+    {  
+        try
+            {
+                $data = Product::find($id);
+                return view('productinfo',['product'=>$data]); 
+            }
+        catch (\Exception $exception) 
+            {
+                return view('error_show');
+            } 
     }
 
   public function products(Request $request)
     {       
-
-                                $products = Product::all();
-
-                                 $filter_data = [];                            
-
-                               foreach($products as $row)
-
-                               {
-
-                                   array_push($filter_data, $row);                            
-
-                               }
-                               
-                               $count = count($filter_data);
-
-                               $page = $request->page;
-
-                               $perPage = 3;                              
-
-                               $offset = ($page-1) * $perPage;                              
-
-                               $products = array_slice($filter_data, $offset, $perPage);      
-                                                    
-
-                               $products = new Paginator($products, $count, $perPage, $page, ['path'  => $request->url(),'query' => $request->query(),]);                                          
-                              
-             return view('products',['products'=>$products]); 
-
+            $page = $request->page;
+            $limit = 2;          
+            $offset = $page-1 ;
+            $products = Product::query()->offset($offset*$limit)->take($limit)->get();
+            $filter_data = []; 
+            $count=0;      
+            foreach($products as $row)
+            {
+                 array_push($filter_data, $row);  
+                 $count++;         
+            }
             
+           // $count = count($filter_data);
+
+                // $page = $request->page;
+                // $perPage = 3;          
+                // $offset = ($page-1) * $perPage;   
+            $products = $filter_data;      
+            $products = new Paginator($products, $count, $limit, $page, ['path'  => $request->url(),'query' => $request->query(),]);                                          
+            
+            return view('products',['products'=>$products]);         
     }
 
      
-     
-     
-     
-     
-     
-    
-    public function delete($id)
+    public function delete(Request $request,$id)
     {  
-        try{
+        Validator::make($request->all(),[
+
+            'id' => 'required',
+            ]);
+
+        try
+        {
                $products = Product::deleteProduct($id);
-       
-               return redirect()->back()->with('status','Product deleted!');
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        return redirect()->back()->with('status','Product deleted!');
     }
 }

@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Database\Eloquent\Model;
 
-class product extends Model 
+class Product extends Model 
 {
     protected $table = 'products';
     protected $fillable=[
@@ -14,65 +14,56 @@ class product extends Model
         'image',
 
     ];
-    public static function addProduct($Name , $Price,$filename)
+
+    public static function addProduct($name , $price,$filename)
     {
         $products = new Product();
-        $products->name = $Name;
-        $products->price = $Price;
-      
+        $products->name = $name;
+        $products->price = $price;
         $products->image = $filename;
-        
-        
-       $products->save();
+        $products->save();
     }
+
+
     public static function searchProducts($search)
     {
        return Product::where('name','like','%'.$search.'%')->get();
-       
-
     }
+
+
     public static function sortProducts($sort)
     {
+      $perpage=6;
         if($sort == 'price_asc')
-        { 
-            
-          return Product::orderBy('price','asc')->paginate(6);
+        {  
+          return Product::orderBy('price','asc')->paginate( $perpage);
         }
+
         else if($sort == 'price_desc')
+        { 
+         return Product::orderBy('price','desc')->paginate( $perpage);                   
+        }
    
-      {
-         
-       return Product::orderBy('price','desc')->paginate(6);                   
-   
-      }
-   
-      else{             
-       
-       return Product::paginate(5);                  
-   
-      }
+        else
+        {         
+         return Product::paginate( $perpage);   
+        }
     }
 
     public static function sortingProducts($sort)
     {
         if($sort == 'price_asc')
-        { 
-            
+        {  
           return Product::orderBy('price','asc')->get();
         }
         else if($sort == 'price_desc')
-   
-      {
-         
-       return Product::orderBy('price','desc')->get();
-   
-      }
-   
-      else{
-       
-       return Product::get();
-   
-      }
+        {  
+        return Product::orderBy('price','desc')->get();
+        }
+        else
+        {
+          return Product::get();
+        }
     }
 
 

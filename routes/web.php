@@ -18,37 +18,32 @@ return view('welcome');
                    
 });
 
-
-
-
 Auth::routes();
-
-
 
 Route::group(['middleware' => ['auth','isUser']],function()
 {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/userwebsite', 'admin\productscontroller@website');
+    Route::get('/userwebsite', 'admin\ProductsController@website');
     
     //searching and sorting products
-    Route::get('/search-products','admin\productscontroller@search');
-    Route::get('/sort-products','admin\productscontroller@display');
+    Route::get('/search-products','admin\ProductsController@search');
+    Route::get('/sort-products','admin\ProductsController@display');
      
     //user-edit
     Route::get('/user-edit', 'UserController@index');
-    Route::post('/edit-profile/{id}', 'UserController@edit');
+    Route::put('/edit-profile/{id}', 'UserController@edit');
 
     
     //cart-operations
     Route::post('/add-cart', 'cartController@store');
-    Route::get('/show-cart', 'cartController@show');
-    Route::get('/cart', 'cartController@index');
+    //Route::get('/show-cart', 'cartController@show');
+    Route::get('/cart', 'cartController@show');
     Route::delete('/delete-cart-item/{id}', 'cartController@delete');
 
     
-    Route::post('product-info/{id}', 'admin\productscontroller@info');
+    Route::post('product-info/{id}', 'admin\ProductsController@info');
     
     
     //order-operations
@@ -59,8 +54,8 @@ Route::group(['middleware' => ['auth','isUser']],function()
     Route::get('/order-history', 'OrderController@index');
 
 
-});
-
+});                
+       
 
 
 Route::group(['middleware' => ['auth','isAdmin']],function()
@@ -69,14 +64,14 @@ Route::group(['middleware' => ['auth','isAdmin']],function()
         return view('admin.dashboard');
     });
     
-    Route::get('/registeredusers','admin\registereduserscontroller@index');
-    Route::delete('/role-delete/{id}', 'admin\registereduserscontroller@delete');
+    Route::get('/registeredusers','admin\RegisteredusersController@index');
+    Route::delete('/role-delete/{id}', 'admin\RegisteredusersController@delete');
 
     //adding Products
-    Route::get('/addproducts','admin\productscontroller@index');
-    Route::post('/store-product','admin\productscontroller@store');
-    Route::get('/allproducts','admin\productscontroller@show');
-    Route::delete('/delete-product/{id}', 'admin\productscontroller@delete');
+    Route::get('/addproducts','admin\ProductsController@index');
+    Route::post('/store-product','admin\ProductsController@store');
+    Route::get('/allproducts','admin\ProductsController@show');
+    Route::delete('/delete-product/{id}', 'admin\ProductsController@delete');
     
    
     
