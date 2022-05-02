@@ -1,6 +1,6 @@
 <?php
 //use Illuminate\Support\Facades\DB;
-
+ 
 namespace App\Http\Controllers\admin;
 use App\Product;
 use Illuminate\Support\Facades\Validator;
@@ -116,7 +116,7 @@ class productscontroller extends Controller
     {  
         $sort = $request->sort;
          try
-         {
+         {    
               $products = Product::sortProducts($sort);
          }
          catch (\Exception $exception) 
@@ -174,7 +174,7 @@ class productscontroller extends Controller
             'id' => 'required',
             ]);
 
-        try
+        try 
         {
                $products = Product::deleteProduct($id);
         }
@@ -185,3 +185,4 @@ class productscontroller extends Controller
         return redirect()->back()->with('status','Product deleted!');
     }
 }
+  

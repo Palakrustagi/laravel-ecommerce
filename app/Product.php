@@ -30,10 +30,9 @@ class Product extends Model
        return Product::where('name','like','%'.$search.'%')->get();
     }
 
-
     public static function sortProducts($sort)
     {
-      $perpage=6;
+        $perpage=6;
         if($sort == 'price_asc')
         {  
           return Product::orderBy('price','asc')->paginate( $perpage);
@@ -52,17 +51,21 @@ class Product extends Model
 
     public static function sortingProducts($sort)
     {
+        $perpage=2;
         if($sort == 'price_asc')
         {  
-          return Product::orderBy('price','asc')->get();
+           $products = Product::orderBy('price','asc')->paginate($perpage);
+           return $products;
         }
         else if($sort == 'price_desc')
         {  
-        return Product::orderBy('price','desc')->get();
+           $products= Product::orderBy('price','desc')->paginate($perpage);
+           return $products;
         }
         else
         {
-          return Product::get();
+           $products= Product::paginate($perpage);
+           return $products;
         }
     }
 

@@ -59,8 +59,8 @@ body{
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form></li>
-           <li> <a href="{{ url('useredit') }}">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
-           <li> <a href="{{ url('userwebsite') }}">GoToWebsite </a></li>
+           <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
+           <li> <a href="{{ url('userwebsite') }}">GoToWebsite  <span class="glyphicon glyphicon-chevron-right"></span></a></li>
            <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
            </ul>
            <div class="panel-body text-center">
@@ -100,7 +100,7 @@ body{
         {{csrf_field() }}
         {{method_field('DELETE')}}
         <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button><br>
-      </form>
+      </form> 
     </td>
     <td>
       <form action="/place-order/{{$element->id}}" method="post">

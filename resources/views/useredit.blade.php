@@ -127,6 +127,7 @@ body{
                     <div class="col-sm-6">
             
                    <input type="password" class="form-control" placeholder="enter new password*" minlength="7" maxlength="12" name="newpass" required/>  
+                  
                    <br>
                    </div>
                    <center>

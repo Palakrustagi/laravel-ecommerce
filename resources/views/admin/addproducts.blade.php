@@ -131,6 +131,7 @@ foreach ($errors->get('price') as $message) {
 }
 
 @endphp
+          </span>
         </div>
       </div>
       <div class="col-mg-4">

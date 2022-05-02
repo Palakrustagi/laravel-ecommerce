@@ -15,14 +15,14 @@ class cartController extends Controller
 {
    
       
-    public function store(Request $request)
+    public function store(Request $request,$user_id)
             {
                 $prod_id = $request->input('id');
                 $cart_quantity =$request->input('quantity');
 
                try
                {
-                    $carts = Cart::showCart($prod_id, $cart_quantity);
+                    $carts = Cart::showCart($prod_id, $cart_quantity,$user_id);
                }
                catch (\Exception $exception) 
                {
@@ -33,11 +33,11 @@ class cartController extends Controller
     }
 
   
-    public function show()
+    public function show($user_id)
     {  
        try
         {
-            $carts = Cart::cartDisplay();
+            $carts = Cart::cartDisplay($user_id);
            
         }
        catch (\Exception $exception) 

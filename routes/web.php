@@ -37,9 +37,9 @@ Route::group(['middleware' => ['auth','isUser']],function()
 
     
     //cart-operations
-    Route::post('/add-cart', 'cartController@store');
+    Route::post('/add-cart/{id}', 'cartController@store');
     //Route::get('/show-cart', 'cartController@show');
-    Route::get('/cart', 'cartController@show');
+    Route::get('/cart/{id}', 'cartController@show');
     Route::delete('/delete-cart-item/{id}', 'cartController@delete');
 
     

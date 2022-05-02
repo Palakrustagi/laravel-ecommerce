@@ -81,7 +81,6 @@ body{
            <li> <a href="{{ url('useredit') }}">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
            <li> <a href="{{ url('userwebsite') }}">GoToWebsite </a></li>
            </ul>
-           
             
             <div class="cont">
               <center>
@@ -100,7 +99,7 @@ body{
             </div>
             
 
-
+                   
 
 
            

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validateRequest extends FormRequest
+class editRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class validateRequest extends FormRequest
         return true;
     }
 
-    /** 
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,19 +24,11 @@ class validateRequest extends FormRequest
     public function rules()
     {
         return [
-            
-                'name' => 'required|unique:products,name',
-                'price'=>'required|integer',
-
-        ];
-    }
-    public function messages()
-    {
-        return[
-            'name.unique' => 'Product name already exists',
-            'price.integer'=>'Please enter valid amount', 
-
+            'id' => 'required',
+            'name' => 'required|unique:users,name',
+            'pass' => 'required',
+            'min:6', 
+            'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
         ];
     }
 }
-  

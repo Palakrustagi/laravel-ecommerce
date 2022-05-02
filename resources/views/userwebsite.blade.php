@@ -63,7 +63,7 @@ body{
                                             {{ csrf_field() }}
                                         </form></li>
            <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
-           <li> <a href="{{ url('cart') }}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+           <li> <a href="{{url ('cart/'.Auth::id())}}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
            <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
            
            <li> <a href="{{ url('api/products') }}">List <span class="glyphicon glyphicon-th-list"></span></a></li>
@@ -74,7 +74,7 @@ body{
                             {{ session('status') }}
                        </div>
            </div>
-           <div class="row">
+           <div class="row">      
            <div class="col-md-4 ">
              <form action= "/search-products"   method="get">
                 <div class="input-group">
@@ -112,7 +112,7 @@ body{
                   <h5 class="mg-0"> <b>INR {{ $item-> price}}</b></h5>
 
 
-                   <form action="/add-cart" method="post">
+                   <form action="{{url ('add-cart/'.Auth::id())}}" method="post">
                    {{csrf_field() }}
                     <input type="hidden"  name='id' value=" {{$item->id }}">
                     <b>Quantity:</b>

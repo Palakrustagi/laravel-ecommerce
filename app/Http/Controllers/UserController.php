@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\editRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -11,17 +12,13 @@ class UserController extends Controller
     {   
         return view('useredit');
     }
-    public function edit(Request $request , $id)
+    public function edit(editRequest $request , $id) 
     { 
         $name = $request->input('newname');
         $oldname = $request->input('oldname');
         $oldpass = $request->input('oldpass');
         $pass = $request->input('newpass'); 
-        Validator::make($request->all(),[
-
-            'id' => 'required',
-            'name' => 'required|unique:users,name',
-            'pass' => 'required']);
+        $request->validate();
         
         try
         {  
