@@ -96,14 +96,14 @@ body{
   
     
     <td>
-      <form action="/delete-cart-item/{{$element->id}}" method="post">
+      <form action="/cart-item/{{$element->id}}" method="post">
         {{csrf_field() }}
         {{method_field('DELETE')}}
         <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button><br>
       </form> 
     </td>
     <td>
-      <form action="/place-order/{{$element->id}}" method="post">
+      <form action="/place-order" method="post">
                    {{csrf_field() }}
                    <input type="hidden"  name='id' value=" {{$element->id }}">
                     

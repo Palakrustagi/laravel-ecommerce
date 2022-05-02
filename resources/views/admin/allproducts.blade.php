@@ -94,7 +94,7 @@ body{
     <td><img src ="{{  asset('public/product/'.$items-> image) }}" height="80px" width="80px" alt= "product image" ></td>
     
     <td>
-      <form action="/delete-product/{{$items->id}}" method="post">
+      <form action="/action-product/{{$items->id}}" method="post">
         {{csrf_field() }}
         {{method_field('DELETE')}}
         <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button>

@@ -98,7 +98,7 @@ body{
         @endif
     </td>
     <td>
-      <form action="/role-delete/{{$item->id}}" method="post">
+      <form action="/action-user/{{$item->id}}" method="post">
         {{csrf_field() }}
         {{method_field('DELETE')}}
         <button type="submit" class="btn btn-primary" class="btn btn-primary">Delete</button>

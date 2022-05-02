@@ -24,9 +24,9 @@ class editRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-            'name' => 'required|unique:users,name',
-            'pass' => 'required',
+            'id' => 'required|integer',
+            'newname' => 'required|unique:users,name',
+            'newpass' => 'required',
             'min:6', 
             'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
         ];

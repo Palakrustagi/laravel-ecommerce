@@ -12,8 +12,16 @@ class UserController extends Controller
     {   
         return view('useredit');
     }
+
+     /**
+     * API:
+     * API to initiate edit
+     * URL: user-edit/{id}
+     * @param Request $request , $id
+     * @return mixed
+     */
     public function edit(editRequest $request , $id) 
-    { 
+    {   
         $name = $request->input('newname');
         $oldname = $request->input('oldname');
         $oldpass = $request->input('oldpass');
@@ -22,13 +30,20 @@ class UserController extends Controller
         
         try
         {  
-             User::edituser($id,$name,$pass,$oldname,$oldpass);         
+            $users = User::edituser($id, $name, $pass, $oldname, $oldpass);         
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
-        return redirect()->back()->with('status','Account updated!');
+        if($users)
+        {
+          return redirect()->back()->with('status','Account updated!');
+        }
+        else
+        {
+            return view('error_show');
+        }
                 
     }   
 } 

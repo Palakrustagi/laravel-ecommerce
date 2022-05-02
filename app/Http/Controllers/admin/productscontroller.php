@@ -4,12 +4,9 @@
 namespace App\Http\Controllers\admin;
 use App\Product;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\validateRequest;
+use App\Http\Requests\ValidateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-
-
- 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,40 +16,54 @@ class productscontroller extends Controller
     {
         return view('admin.addproducts');
     }
-
-
-    public function store(validateRequest $request)
+    
+     /**
+     * API:
+     * API to initiate store
+     * URL: /store-product
+     * @param ValidateRequest $request
+     * @return mixed
+     */
+    public function store(ValidateRequest $request)
     { 
         $products = new Product;
         $request->validate();
         $name = $request->input('name');
         $price  = $request->input('price');
-      try
-        {
-            if (!($request->hasFile('image'))) 
+        if (!($request->hasFile('image'))) 
             {
                 return view('error_show');
             }
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
-            $file->move('public/product/', $filename);
-            $products = Product::addProduct($name , $price,$filename);
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        $filename = time().'.'.$extension;
+        $file->move('public/product/', $filename);
+        try
+        {
+            $products = Product::addProduct($name , $price, $filename);
            
-       }
-    catch (\Exception $exception) 
+        }
+        catch (\Exception $exception) 
         {
             return view('error_show');
         }
-        return redirect('allproducts')->with('status','Product added!');
+        if($products)
+        {
+            return redirect('allproducts')->with('status','Product added!');
+        }
+        else
+        {
+            return view('error_show');
+        }
      }
    
    public function show()
     {
-        $perpage=6;
-        try{
-             $products = Product::paginate($perpage);
-           }
+        $limit=6;
+        try
+        {   
+            $products = Product::allProducts($limit);
+        }
         catch (\Exception $exception) 
         {
             return view('error_show');
@@ -64,16 +75,18 @@ class productscontroller extends Controller
 
     public function search(Request $request)
     {  
-        $query = $request->get('search');
+        $searchQuery = $request->get('search');
+        if(!$searchQuery)
+        {  
+            $products = Product::all();
+            return view('userwesbsite')->with('products',$products);
+        }
         try
-        {   if(!$query)
-            {   $products=Product::all();
-                return view('userwesbsite')->with('products',$products);
-            }
-            $products = Product::searchProducts($query);
+        {   
+            $products = Product::searchProducts($searchQuery);
             
         }
-    catch (\Exception $exception)       
+        catch (\Exception $exception)       
         {
             return view('error_show');
         }
@@ -83,10 +96,11 @@ class productscontroller extends Controller
 
     public function website()
     {   
-        $perpage = 6;
+        $limit = 6;
         try
-        {
-              $products = Product::paginate($perpage);
+        {     
+              $products = Product::showWebsite( $limit);
+              
         }
        catch (\Exception $exception) 
         {
@@ -114,15 +128,16 @@ class productscontroller extends Controller
 
     public function display(Request $request)
     {  
-        $sort = $request->sort;
+         $sort = $request->sort;
+         $limit = 5;
          try
          {    
-              $products = Product::sortProducts($sort);
+              $products = Product::sortProducts($sort , $limit);
          }
          catch (\Exception $exception) 
-        {
+         {
             return view('error_show');
-        }
+         }
         
         return view('userwebsite')->with('products',$products);
 
@@ -154,12 +169,7 @@ class productscontroller extends Controller
                  array_push($filter_data, $row);  
                  $count++;         
             }
-            
-           // $count = count($filter_data);
-
-                // $page = $request->page;
-                // $perPage = 3;          
-                // $offset = ($page-1) * $perPage;   
+              
             $products = $filter_data;      
             $products = new Paginator($products, $count, $limit, $page, ['path'  => $request->url(),'query' => $request->query(),]);                                          
             
@@ -169,20 +179,28 @@ class productscontroller extends Controller
      
     public function delete(Request $request,$id)
     {  
-        Validator::make($request->all(),[
+        Validator::make($request->all(),
+        [
 
-            'id' => 'required',
-            ]);
+            'id' => 'required|integer',
+        ]);
 
         try 
         {
-               $products = Product::deleteProduct($id);
+            $products = Product::deleteProduct($id);
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
-        return redirect()->back()->with('status','Product deleted!');
+        if($products)
+        {
+            return redirect()->back()->with('status','Product deleted!');
+        }
+        else
+        {
+            return view('error_show');
+        }
     }
 }
   

@@ -16,36 +16,43 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
+    protected $fillable = 
+    [
         'name', 'email', 'password',
     ];
 
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     *  @var array
      */
-    protected $hidden = [
+    protected $hidden = 
+    [
         'password', 'remember_token',
     ];
-    
-public  static function edituser($id,$name,$pass,$oldname,$oldpass)
-{
-    
-    $users = User::where('name','=',$oldname)->first();
-    $users->name = $name;
-    $users->password = $pass;
-    $users->save();
-}
-    
-public static function deleteUser($id)
-{
-    $users = User::findOrFail($id); 
-    $users->delete();
-}
+    public static function showUsers($limit)
+    {   
+        return User::paginate($limit);
+    }
+        
+    public  static function edituser($id, $name, $pass, $oldname, $oldpass)
+    {
+        
+        $users = User::where('name','=',$oldname)->first();
+        $users->name = $name;
+        $users->password = $pass;
+        return $users->save();
+    }
+        
+    public static function deleteUser($id)
+    {
+        $users = User::findOrFail($id); 
+        $delete = $users->delete();
+        return $delete;
+    }
 
-public function isOnline()
-{
-    return Cache::has('user-is-online'.$this->id);
-}
-}
+    public function isOnline()
+    {
+        return Cache::has('user-is-online'.$this->id);
+    }
+    }

@@ -15,13 +15,14 @@ class OrderController extends Controller
     { 
         try
         {
-            $orders = Order::all();
-            return view('history')->with('orders',$orders);
+            $limit = 5;
+            $orders = Order::showOrders($limit);
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
+        return view('history')->with('orders',$orders);
 
     }
     public function store(Request $request)
@@ -34,20 +35,27 @@ class OrderController extends Controller
             
         }
         catch (\Exception $exception) 
-            {
-                return view('error_show');
-            }
-        return view('order')->with('orders',$orders);
-    
+        {
+            return view('error_show');
+        }
+        if($orders)
+        {
+            return view('order')->with('orders',$orders);
+        }
+        else
+        {
+            return view('error_show');
+        }
+        
     }
 
 
     public function orderHistory(Request $request,$id)
     { 
-        Validator::make($request->all(),[
-
-            'id' => 'required',
-            ]);
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+        ]);
         
         try
         {
@@ -62,22 +70,35 @@ class OrderController extends Controller
 
     }
 
-
-    public function delete(Request $request,$id)
-    {  
-        Validator::make($request->all(),[
-
-            'id' => 'required',
-            ]);
-        try
-        {
-           $orders = Order::deleteOrder($id);
+    /**
+     * API:
+     * API to initiate delete
+     * URL: place-order
+     * @param Request $request , $id
+     * @return mixed
+     */
+    // public function delete(Request $request,$id)
+    // {  
+    //     Validator::make($request->all(),
+    //     [
+    //         'id' => 'required|integer',
+    //     ]);
+    //     try
+    //     {
+    //        $orders = Order::deleteOrder($id);
        
-        }
-        catch (\Exception $exception) 
-        {
-            return view('error_show');
-        }
-        return redirect('/order')->with('status','Item deleted!');
-    }
+    //     }
+    //     catch (\Exception $exception) 
+    //     {
+    //         return view('error_show');
+    //     }
+    //     if($orders)
+    //     {  
+    //         return redirect('/order')->with('status','Item deleted!');
+    //     }
+    //     else
+    //     {
+    //         return view('error_show');
+    //     }
+    // }
 }

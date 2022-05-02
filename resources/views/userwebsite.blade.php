@@ -63,7 +63,7 @@ body{
                                             {{ csrf_field() }}
                                         </form></li>
            <li> <a href="/user-edit">UserEdit <span class="glyphicon glyphicon-edit"></span></a></li>
-           <li> <a href="{{url ('cart/'.Auth::id())}}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+           <li> <a href="{{url ('cart')}}">Cart <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
            <li> <a href="{{ url('order-history') }}">Orders <span class="glyphicon glyphicon-th-large"></span></a></li>
            
            <li> <a href="{{ url('api/products') }}">List <span class="glyphicon glyphicon-th-list"></span></a></li>
@@ -104,7 +104,7 @@ body{
                   <img src ="{{  asset('public/product/'.$item-> image) }}" class="w-100" width="150px" height="270px" alt= "product image" > 
                   <div class="card-body bg-light">
                   <center><h5 class="mg-0"><b>{{ $item-> name}}</b></h5>
-                  <form action="/product-info/{{$item->id}}" method="post">
+                  <form action="/product-info/{{$item->id}}" method="get">
                   {{csrf_field() }}
         
                           <button type="submit">More details</button>

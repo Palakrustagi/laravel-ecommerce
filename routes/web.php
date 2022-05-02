@@ -22,7 +22,6 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','isUser']],function()
 {
-
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/userwebsite', 'admin\ProductsController@website');
@@ -33,31 +32,28 @@ Route::group(['middleware' => ['auth','isUser']],function()
      
     //user-edit
     Route::get('/user-edit', 'UserController@index');
-    Route::put('/edit-profile/{id}', 'UserController@edit');
+    Route::put('/user-edit/{id}', 'UserController@edit');
 
     
     //cart-operations
     Route::post('/add-cart/{id}', 'cartController@store');
     //Route::get('/show-cart', 'cartController@show');
-    Route::get('/cart/{id}', 'cartController@show');
-    Route::delete('/delete-cart-item/{id}', 'cartController@delete');
+    Route::get('/cart', 'cartController@show');
+    Route::delete('/cart-item/{id}', 'cartController@delete');
 
-    
-    Route::post('product-info/{id}', 'admin\ProductsController@info');
+    //get product info
+    Route::get('product-info/{id}', 'admin\ProductsController@info');
     
     
     //order-operations
-    Route::get('/order', 'OrderController@index');
-    Route::delete('/delete-order-item/{id}', 'OrderController@delete');
-    Route::post('/place-order/{id}', 'OrderController@store');
+    Route::get('/order', 'OrderController@index');  
+    //Route::delete('/delete-order-item/{id}', 'OrderController@delete');
+    Route::post('/place-order', 'OrderController@store');
     Route::get('/order-history/{id}', 'OrderController@orderHistory');
     Route::get('/order-history', 'OrderController@index');
 
-
 });                
-       
-
-
+      
 Route::group(['middleware' => ['auth','isAdmin']],function()
 {
     Route::get('dashboard', function () {
@@ -65,15 +61,12 @@ Route::group(['middleware' => ['auth','isAdmin']],function()
     });
     
     Route::get('/registeredusers','admin\RegisteredusersController@index');
-    Route::delete('/role-delete/{id}', 'admin\RegisteredusersController@delete');
+    Route::delete('/action-user/{id}', 'admin\RegisteredusersController@delete');
 
     //adding Products
     Route::get('/addproducts','admin\ProductsController@index');
     Route::post('/store-product','admin\ProductsController@store');
     Route::get('/allproducts','admin\ProductsController@show');
-    Route::delete('/delete-product/{id}', 'admin\ProductsController@delete');
+    Route::delete('/action-product/{id}', 'admin\ProductsController@delete');
     
-   
-    
-   
 });

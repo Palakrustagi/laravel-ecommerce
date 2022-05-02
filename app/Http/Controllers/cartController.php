@@ -16,25 +16,38 @@ class cartController extends Controller
    
       
     public function store(Request $request,$user_id)
-            {
-                $prod_id = $request->input('id');
-                $cart_quantity =$request->input('quantity');
+    {
 
-               try
-               {
-                    $carts = Cart::showCart($prod_id, $cart_quantity,$user_id);
-               }
-               catch (\Exception $exception) 
-               {
-                   return view('error_show');
-               }
+        $prod_id = $request->input('id');
+        $cart_quantity =$request->input('quantity');
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+            'quantity' => 'required',
+        ]);
         
+
+        try
+        {
+            $carts = Cart::showCart($prod_id, $cart_quantity, $user_id);
+        }
+        catch (\Exception $exception)  
+        {
+            return view('error_show');
+        }
+
         return view('cart')->with('carts',$carts);
     }
 
   
-    public function show($user_id)
+    public function show(Request $request)
     {  
+        $user_id = Auth::id();
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+        ]);
+       
        try
         {
             $carts = Cart::cartDisplay($user_id);
@@ -47,23 +60,25 @@ class cartController extends Controller
         return view('cart')->with('carts',$carts);
 
     } 
-
+   
 
     public function delete(Request $request ,$id)
     { 
-        Validator::make($request->all(),[
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+        ]);
+        
+        try
+        {
+            $carts = Cart::deleteCartItem($id);
+        
+        }
+        catch (\Exception $exception) 
+        {
+            return view('error_show');
+        }
 
-            'id' => 'required',
-            ]);
-      try
-      {
-            $carts = Cart::findOrFail($id)->delete();
-           
-      }
-    catch (\Exception $exception) 
-    {
-        return view('error_show');
-    }
-    return redirect('/cart')->with('status','Item deleted!');
-    }
+        return redirect('/cart')->with('status','Item deleted!');
+        }
 }

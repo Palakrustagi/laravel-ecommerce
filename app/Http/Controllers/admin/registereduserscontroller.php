@@ -11,29 +11,41 @@ class registereduserscontroller extends Controller
 {
     public function index()
     { 
-        $perpage=4;
+      $limit = 5;
       try
         {  
-            $users = User::paginate( $perpage);
-            
+          $users = USER::showUsers($limit);
         }
       catch (\Exception $exception) 
         {
-            return view('error_show');
+          return view('error_show');
         }
         return view('admin.registeredusers')->with('users',$users);
 
     }
-
-
+   
+    /**
+     * API:
+     * API to initiate delete
+     * URL: role-delete/{id}
+     * @param Request $request
+     * @return mixed
+     */
     public function delete(Request $request,$id)
     {
-      Validator::make($request->all(),[
-
-        'id' => 'required',
-        ]);
-       User::deleteUser($id);
-       return redirect('registeredusers')->with('status','Account deleted!');
+      Validator::make($request->all(),
+      [
+        'id' => 'required|integer',
+      ]);
+      $users = User::deleteUser($id);
+      if($users)
+      {
+        return redirect('registeredusers')->with('status','Account deleted!');
+      }
+      else
+      {
+        return view('error_show');
+      }
     }
     
 }

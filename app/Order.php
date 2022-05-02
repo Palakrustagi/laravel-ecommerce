@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class Order extends Model
 {
     protected $table = 'orders';
-    protected $fillable=[
+    protected $fillable=[ 
         'user_id',
         'cart_id',
         'prod_id',
@@ -17,13 +17,18 @@ class Order extends Model
         'quantity',
 
     ];
-    
-    public static function deleteOrder($id)
 
+    public static function showOrders($limit)
     {
-        $order = Order::findOrFail($id); 
-        $order->delete();
+        return Order::paginate($limit);
     }
+
+    // public static function deleteOrder($id)
+    // {
+    //     $order = Order::findOrFail($id); 
+    //     return $order->delete();
+    // }
+
     public static function storeOrder($cart_id)
     {
         $cartByid = Cart::where('id',$cart_id)->first();
@@ -34,7 +39,7 @@ class Order extends Model
         $orders->name = $cartByid->name;
         $orders->price = $cartByid->price;
         $orders->quantity =$cartByid->quantity;
-        $orders->save();
+        return $orders->save();
     }
    
 

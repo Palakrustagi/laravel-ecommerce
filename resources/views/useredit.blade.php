@@ -99,7 +99,7 @@ body{
                        </div>
            </div>
            
-           <form action="{{url ('edit-profile/'.Auth::id())}}" method="post">
+           <form action="{{url ('user-edit/'.Auth::id())}}" method="post">
            {{ csrf_field() }}
            {{ method_field('PUT') }}
            <div class="name"><b><u>Name:</u></b></div> 
