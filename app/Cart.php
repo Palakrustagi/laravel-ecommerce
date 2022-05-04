@@ -22,7 +22,10 @@ class Cart extends Model
     
     public static function showCart($prod_id, $cart_quantity,$user_id)
     {
-     
+        if( empty($prod_id||$cart_quantity||$user_id))
+        {
+            return null;
+        }
         $carts = new Cart();
         $carts->user_id = $user_id;
         $carts->prod_id = $prod_id;
@@ -40,11 +43,19 @@ class Cart extends Model
     
     public static function deleteCartItem($id)
     {
+        if(empty($id))
+        {
+            return null; 
+        }
         return Cart::findOrFail($id)->delete();
     }
           
     public static function cartDisplay($user_id)      
     {   
+        if( empty($user_id))
+        {
+            return null;
+        }
         $carts = self::select('carts.id','carts.prod_id','carts.quantity','products.name','products.price','products.image')
                 ->join('products', 'carts.prod_id', '=', 'products.id')
                 ->where('carts.user_id','=',$user_id)

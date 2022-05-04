@@ -33,8 +33,15 @@ class cartController extends Controller
         {
             return view('error_show');
         }
-
-        return view('cart')->with('carts',$carts);
+        if($carts)
+        {
+            return view('cart')->with('carts',$carts);
+        }
+        else
+        {
+            return view('error_show');
+        }
+        
     }
 
   
@@ -54,8 +61,14 @@ class cartController extends Controller
         {
             return view('error_show');
         }
-        return view('cart')->with('carts',$carts);
-
+        if($carts)
+        {
+            return view('cart')->with('carts',$carts);
+        }
+        else
+        {
+            return view('error_show');
+        }
     } 
    
 
@@ -75,7 +88,14 @@ class cartController extends Controller
         {
             return view('error_show');
         }
-
-        return redirect('/cart')->with('status','Item deleted!');
+        if($carts)
+        {
+            return redirect('/cart')->with('status','Item deleted!');
         }
+        else
+        {
+            return view('error_show');
+        }
+        
+    }
 }
