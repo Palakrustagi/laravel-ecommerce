@@ -18,16 +18,15 @@ class productscontroller extends Controller
     }
     
      /**
-     * API:
-     * API to initiate store
+     * function: store: to add and store products
      * URL: /store-product
      * @param ValidateRequest $request
      * @return mixed
      */
     public function store(ValidateRequest $request)
     { 
-        $products = new Product;
         $request->validate();
+        $products = new Product;
         $name = $request->input('name');
         $price  = $request->input('price');
         if (!($request->hasFile('image'))) 
@@ -75,22 +74,29 @@ class productscontroller extends Controller
 
     public function search(Request $request)
     {  
+        Validator::make($request->all(),
+        [
+            'search' => 'required',
+        ]);
         $searchQuery = $request->get('search');
-        if(!$searchQuery)
-        {  
-            $products = Product::all();
-            return view('userwesbsite')->with('products',$products);
-        }
+        $limit = 3;
         try
         {   
-            $products = Product::searchProducts($searchQuery);
+            $products = Product::searchProducts($searchQuery, $limit);
             
         }
         catch (\Exception $exception)       
         {
             return view('error_show');
         }
-        return view('search')->with('products',$products);
+        if($products)
+        {
+           return view('search')->with('products',$products);
+        }
+        else
+        {
+            return view('userwebsite')->with('products',$products);
+        }
     }
 
 
@@ -99,8 +105,7 @@ class productscontroller extends Controller
         $limit = 6;
         try
         {     
-              $products = Product::showWebsite( $limit);
-              
+            $products = Product::showWebsite( $limit);
         }
        catch (\Exception $exception) 
         {
@@ -113,9 +118,10 @@ class productscontroller extends Controller
     public function sorting(Request $request)
     {
         $sort = $request->sort;
+        $limit = 3;
         try
         {
-            $products = Product::sortingProducts($sort);
+            $products = Product::sortProducts($sort, $limit);
         }       
         catch (\Exception $exception) 
         {
@@ -125,7 +131,12 @@ class productscontroller extends Controller
                     
     }
       
-
+     /**
+     * function: display: to sort products
+     * URL: /sort-products
+     * @param Request $request
+     * @return mixed
+     */
     public function display(Request $request)
     {  
          $sort = $request->sort;
@@ -141,27 +152,36 @@ class productscontroller extends Controller
         
         return view('userwebsite')->with('products',$products);
 
-}
+    }
 
-    public function info($id)
+    public function info(Request $request , $id)
     {  
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+        ]);
         try
             {
-                $data = Product::find($id);
-                return view('productinfo',['product'=>$data]); 
+                $data = Product::productInfo($id);
+                 
             }
         catch (\Exception $exception) 
             {
                 return view('error_show');
             } 
+        if($data)
+        {
+            return view('productinfo',['product'=>$data]);
+        }
+        else
+        {
+            return view('error_show');
+        }
     }
 
   public function products(Request $request)
     {       
-            $page = $request->page;
-            $limit = 2;          
-            $offset = $page-1 ;
-            $products = Product::query()->offset($offset*$limit)->take($limit)->get();
+            $products = Product::all();    //query()->offset($offset*$limit)->take($limit)->get();
             $filter_data = []; 
             $count=0;      
             foreach($products as $row)
@@ -169,8 +189,11 @@ class productscontroller extends Controller
                  array_push($filter_data, $row);  
                  $count++;         
             }
-              
-            $products = $filter_data;      
+            //$count = count($filter_data);
+            $page = $request->page;
+            $limit = 3;
+            $offset = ($page-1) * $limit; 
+            $products =array_slice($filter_data, $offset, $limit);      
             $products = new Paginator($products, $count, $limit, $page, ['path'  => $request->url(),'query' => $request->query(),]);                                          
             
             return view('products',['products'=>$products]);         
@@ -181,7 +204,6 @@ class productscontroller extends Controller
     {  
         Validator::make($request->all(),
         [
-
             'id' => 'required|integer',
         ]);
 

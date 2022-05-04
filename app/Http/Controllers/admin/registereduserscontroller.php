@@ -24,11 +24,11 @@ class registereduserscontroller extends Controller
 
     }
    
-    /**
-     * API:
-     * API to initiate delete
-     * URL: role-delete/{id}
-     * @param Request $request
+    
+     /**
+     * function: delete: to delete users
+     * URL: /action-user
+     * @param Request $request , user-id
      * @return mixed
      */
     public function delete(Request $request,$id)

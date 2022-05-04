@@ -106,6 +106,7 @@ body{
 
 </tr>
 @endforeach
+{{ $products -> links()}}
 
 </tbody>
 </table>

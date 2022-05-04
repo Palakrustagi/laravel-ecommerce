@@ -25,10 +25,15 @@ class OrderController extends Controller
         return view('history')->with('orders',$orders);
 
     }
+
     public function store(Request $request)
     {
+        Validator::make($request->all(),
+        [
+            'id' => 'required|integer',
+            
+        ]);
         $cart_id = $request->input('id');
-        
         try
         { 
             $orders = Order::storeOrder($cart_id);
@@ -49,8 +54,13 @@ class OrderController extends Controller
         
     }
 
-
-    public function orderHistory(Request $request,$id)
+     /**
+     * function : orderhistory : to show order history
+     * URL: order-history
+     * @param Request $request , $id
+     * @return mixed
+     */
+    public function orderHistory(Request $request,$id) 
     { 
         Validator::make($request->all(),
         [
@@ -59,24 +69,26 @@ class OrderController extends Controller
         
         try
         {
-            $orders = Order::where('user_id','=',$id)->get();
+            $orders = Order::showHistory($id);
         
         }
         catch (\Exception $exception) 
         {
             return view('error_show');
         }
-        return view('history')->with('orders',$orders);
+        if($orders)
+        {
+            return view('history')->with('orders',$orders);
+        }
+        else
+        {
+            return view('error_show');
+        }
+       
 
     }
 
-    /**
-     * API:
-     * API to initiate delete
-     * URL: place-order
-     * @param Request $request , $id
-     * @return mixed
-     */
+   
     // public function delete(Request $request,$id)
     // {  
     //     Validator::make($request->all(),

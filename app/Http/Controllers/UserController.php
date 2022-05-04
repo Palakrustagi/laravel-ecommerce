@@ -27,7 +27,6 @@ class UserController extends Controller
         $oldpass = $request->input('oldpass');
         $pass = $request->input('newpass'); 
         $request->validate();
-        
         try
         {  
             $users = User::edituser($id, $name, $pass, $oldname, $oldpass);         
@@ -38,7 +37,7 @@ class UserController extends Controller
         }
         if($users)
         {
-          return redirect()->back()->with('status','Account updated!');
+            return redirect()->back()->with('status','Account updated!');
         }
         else
         {

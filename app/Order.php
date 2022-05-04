@@ -28,9 +28,21 @@ class Order extends Model
     //     $order = Order::findOrFail($id); 
     //     return $order->delete();
     // }
+    public static function showHistory($id)
+    {
+        if( empty($id))
+        {
+            return null;
+        }
+        return Order::where('user_id','=',$id)->get();
+    }
 
     public static function storeOrder($cart_id)
     {
+        if( empty($cart_id))
+        {
+            return null;
+        }
         $cartByid = Cart::where('id',$cart_id)->first();
         $orders = new Order();
         $orders ->user_id = Auth::id();

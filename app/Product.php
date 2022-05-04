@@ -34,10 +34,18 @@ class Product extends Model
         $products = Product::paginate($limit);
         return $products;
     }
- 
-    public static function searchProducts($search)
+    public static function productInfo($id)
     {
-       return Product::where('name','like','%'.$search.'%')->get();
+        return Product::find($id);
+    }
+ 
+    public static function searchProducts($search, $limit)
+    {
+       if( empty($search))
+       {
+           return Product::paginate( $limit);
+       }
+       return Product::where('name','like','%'.$search.'%')->paginate( $limit);
     }
 
     public static function sortProducts($sort , $limit)
@@ -58,29 +66,13 @@ class Product extends Model
          return Product::paginate($limit);   
         }
     }
-
-    public static function sortingProducts($sort)
-    {
-        $perpage=2;
-        if($sort == 'price_asc')
-        {  
-           $products = Product::orderBy('price','asc')->paginate($perpage);
-           return $products;
-        }
-        else if($sort == 'price_desc')
-        {  
-           $products= Product::orderBy('price','desc')->paginate($perpage);
-           return $products;
-        }
-        else
-        {
-           $products= Product::paginate($perpage);
-           return $products;
-        }
-    } 
     
     public static function deleteProduct($id)
     {
+        if( empty($id))
+        {
+            return null;
+        }
         $product = Product::findOrFail($id); 
         return $product->delete();
     }

@@ -37,7 +37,10 @@ class User extends Authenticatable
         
     public  static function edituser($id, $name, $pass, $oldname, $oldpass)
     {
-        
+        if( empty($id||$name||$pass||$oldname||$oldpass))
+        {
+            return null;
+        }
         $users = User::where('name','=',$oldname)->first();
         $users->name = $name;
         $users->password = $pass;
@@ -46,6 +49,10 @@ class User extends Authenticatable
         
     public static function deleteUser($id)
     {
+        if( empty($id))
+        {
+            return null;
+        }
         $users = User::findOrFail($id); 
         $delete = $users->delete();
         return $delete;

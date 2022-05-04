@@ -17,16 +17,14 @@ class cartController extends Controller
       
     public function store(Request $request,$user_id)
     {
-
-        $prod_id = $request->input('id');
-        $cart_quantity =$request->input('quantity');
         Validator::make($request->all(),
         [
             'id' => 'required|integer',
             'quantity' => 'required',
         ]);
+        $prod_id = $request->input('id');
+        $cart_quantity =$request->input('quantity');
         
-
         try
         {
             $carts = Cart::showCart($prod_id, $cart_quantity, $user_id);
@@ -42,12 +40,11 @@ class cartController extends Controller
   
     public function show(Request $request)
     {  
-        $user_id = Auth::id();
         Validator::make($request->all(),
         [
             'id' => 'required|integer',
         ]);
-       
+        $user_id = Auth::id();
        try
         {
             $carts = Cart::cartDisplay($user_id);

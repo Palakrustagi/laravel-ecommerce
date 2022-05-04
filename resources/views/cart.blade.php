@@ -11,7 +11,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
-    ul {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
